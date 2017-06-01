@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kupchinskii.ruslan.gpsup">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.PRIORITY_HIGH_ACCURACY" />
+
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <!--
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+-->
+
+   <!--
+
+    <action android:name="android.location.PROVIDERS_CHANGED" />
+
+
+   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+   <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
+
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+   -->
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name=".ServiceGpsUp"
+            android:enabled="true" />
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+<!--
+        <receiver android:name=".widget_s">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_s_info" />
+        </receiver>
+
+        <activity android:name=".widget_sConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>\
+
+        -->
+    </application>
+
+</manifest>

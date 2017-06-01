@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/mainCtrl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black"
+    >
+
+    <ScrollView
+        android:id="@+id/ctrlInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:maxLines="20"
+            android:textSize="22dp"
+            android:background="@color/black"
+            android:textColor="@color/green"
+            />
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/btnCtrl"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="right"
+        >
+
+        <Button
+            android:layout_margin="4dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ico_minimize"
+            android:onClick="onClickExit"
+            />
+        <Button
+            android:id="@+id/btnStartStop"
+            android:layout_margin="4dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ico_close"
+            android:onClick="onClickPower"
+            >
+        </Button>
+    </LinearLayout>
+
+
+</FrameLayout  >

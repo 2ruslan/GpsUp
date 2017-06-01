@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">GpsUp</string>
+
+    <string name="service_power">Start/stop service</string>
+    <string name="exit">Exit</string>
+    <string name="agps">AGPS</string>
+    <string name="appwidget_text">+GpsUp</string>
+    <string name="add_widget">Add widget</string>
+    <string name="configure">Configure</string>
+
+    <string name="rb_no_close">no cloase app</string>
+    <string name="rb_close_on_app">cloase on app</string>
+    <string name="rb_close_on_gps">cloase on gps</string>
+
+
+</resources>
