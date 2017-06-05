@@ -45,8 +45,6 @@ public class GPS implements LocationListener, GpsStatus.Listener {
         try {
             GpsStatus status = locationManagerGPS.getGpsStatus(null);
             Iterable<GpsSatellite> sats = status.getSatellites();
-            int Satellites = 0;
-            int Fix = 0;
 
             currentResult.satTotal = 0;
             currentResult.satAct = 0;
@@ -61,9 +59,9 @@ public class GPS implements LocationListener, GpsStatus.Listener {
 
                 if(sat.getSnr()>0) {
 
-                    currentResult.SInfo[Satellites].isFix = sat.usedInFix();
-                    currentResult.SInfo[Satellites].num = sat.getPrn();
-                    currentResult.SInfo[Satellites].snr = sat.getSnr();
+                    currentResult.SInfo[currentResult.satCnt].isFix = sat.usedInFix();
+                    currentResult.SInfo[currentResult.satCnt].num = sat.getPrn();
+                    currentResult.SInfo[currentResult.satCnt].snr = sat.getSnr();
 
                     currentResult.satCnt++;
                 }
