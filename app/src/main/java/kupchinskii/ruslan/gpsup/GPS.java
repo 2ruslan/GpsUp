@@ -47,10 +47,17 @@ public class GPS implements LocationListener, GpsStatus.Listener {
             Iterable<GpsSatellite> sats = status.getSatellites();
             int Satellites = 0;
             int Fix = 0;
+
+            currentResult.satTotal = 0;
+            currentResult.satAct = 0;
+            currentResult.satCnt = 0;
+
             for (GpsSatellite sat : sats) {
 
+                currentResult.satTotal++;
+
                 if(sat.usedInFix())
-                    Fix++;
+                    currentResult.satAct++;
 
                 if(sat.getSnr()>0) {
 
@@ -58,17 +65,11 @@ public class GPS implements LocationListener, GpsStatus.Listener {
                     currentResult.SInfo[Satellites].num = sat.getPrn();
                     currentResult.SInfo[Satellites].snr = sat.getSnr();
 
-                    Satellites++;
+                    currentResult.satCnt++;
                 }
-
-
-
-
             }
-            currentResult.satCnt = Satellites;
-            currentResult.satAct = Fix;
 
-            if(Fix > 0)
+            if(currentResult.satAct  > 0)
                 IsReseting = false;
 
         }catch (Exception ex) {

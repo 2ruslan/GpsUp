@@ -13,6 +13,7 @@ public class GPS_Result {
     public int satCnt;
     public int satAct;
     public int fixCnt;
+    public int satTotal;
 
     public SatInfo[]SInfo = new SatInfo[_MAX_SAT_CNT];
 
@@ -31,5 +32,6 @@ public class GPS_Result {
         satAct = 0;
         satCnt = 0;
         fixCnt = 0;
+        satTotal = 0;
     }
 }

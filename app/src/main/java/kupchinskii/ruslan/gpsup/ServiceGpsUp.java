@@ -213,7 +213,11 @@ public class ServiceGpsUp extends Service {
             }
         }
 
-        int ni = 0;
+    int ni = 0;
+    int lineW = 20;
+    int linePos = 0;
+    boolean isBack = false;
+
         private String GetFormatInfo(GPS_Result val){
             StringBuilder s = new StringBuilder();
 
@@ -222,6 +226,28 @@ public class ServiceGpsUp extends Service {
             }
 
             s.append(String.format("\nsat : %s / %s", val.satAct, val.satCnt));
+
+            if(val.satAct ==0 && val.satCnt == 0){
+                if(val.satTotal > 0)
+                    s.append("\nAGPS : ok");
+
+                if(isBack)
+                    linePos -- ;
+                else
+                    linePos++;
+
+                if(linePos > lineW) {
+                    isBack = true;
+                    linePos = lineW;
+                }
+                if(linePos < 0) {
+                    isBack = false;
+                    linePos = 0;
+                }
+
+                s.append( String.format("\n%s%s", Common.getStringWithLengthAndFilledWithCharacter(linePos, ' ' ), '▓' ));
+
+            }
 
             if(ni++ == 0) {
                 if(val.status != Common.STATUS_DISABLE) {

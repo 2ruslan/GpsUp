@@ -25,6 +25,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -204,6 +205,15 @@ public class Common {
     public static void logInFile(String tag, Exception ex)
     {
         logInFile(tag, ex.getStackTrace().toString());
+    }
+
+    public static String getStringWithLengthAndFilledWithCharacter(int length, char charToFill) {
+        if (length > 0) {
+            char[] array = new char[length];
+            Arrays.fill(array, charToFill);
+            return new String(array);
+        }
+        return "";
     }
 
 
