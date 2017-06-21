@@ -194,7 +194,7 @@ public class ServiceGpsUp extends Service {
                 s.append(String.format("spd : %s\n+/- : %s\nlat : %s\nlon : %s ", val.speed, val.accuracy, val.latitude, val.longitude));
 
                 if (val.time > 0)
-                    s.append(String.format("gps time : %s\n", dateFormat.format(val.time) + " " + timeFormat.format(val.time)));
+                    s.append(String.format("\ngps time : %s", dateFormat.format(val.time) + " " + timeFormat.format(val.time)));
             }
 
             s.append(String.format("\nsat : %s / %s", val.satAct, val.satCnt));
