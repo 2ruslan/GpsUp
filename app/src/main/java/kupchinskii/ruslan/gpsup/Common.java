@@ -180,33 +180,6 @@ public class Common {
                     :(_LargeIcon =  (((BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_launcher)).getBitmap()));
     }
 
-
-    public static void logInFile(String tag, String msg)
-    {
-
-        try {
-            File file = new File(Environment.getExternalStorageDirectory().toString() + "/" +
-                    "gpsUp.log");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            String timeLog = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(new Date());
-            Log.d(tag, timeLog +"\t" + tag + "\t" + msg + "\n");
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
-            bw.append( timeLog +"\t" + tag + "\t" + msg + "\n");
-            bw.close();
-
-        } catch (Exception e) {
-            Log.d("", e.getMessage());
-        }
-
-    }
-    public static void logInFile(String tag, Exception ex)
-    {
-        logInFile(tag, ex.getStackTrace().toString());
-    }
-
     public static String getStringWithLengthAndFilledWithCharacter(int length, char charToFill) {
         if (length > 0) {
             char[] array = new char[length];

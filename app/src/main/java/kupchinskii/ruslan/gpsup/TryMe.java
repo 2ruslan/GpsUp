@@ -12,7 +12,6 @@ public class TryMe implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
-        Common.logInFile("ERROR", Log.getStackTraceString( throwable ) );
 
         if(oldHandler != null)
             oldHandler.uncaughtException(thread, throwable);

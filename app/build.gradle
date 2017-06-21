@@ -8,7 +8,7 @@ android {
         applicationId "kupchinskii.ruslan.gpsup"
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 12
+        versionCode 14
         versionName "1.5.6"
     }
     buildTypes {

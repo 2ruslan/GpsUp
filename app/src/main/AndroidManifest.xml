@@ -7,20 +7,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-    <!--
-   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
--->
-
-   <!--
-
-    <action android:name="android.location.PROVIDERS_CHANGED" />
-
-
-   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-   <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
-
-   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-   -->
     <application
         android:name=".MyApplication"
         android:allowBackup="false"
@@ -40,24 +26,7 @@
             </intent-filter>
         </activity>
 
-<!--
-        <receiver android:name=".widget_s">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_s_info" />
-        </receiver>
-
-        <activity android:name=".widget_sConfigureActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>\
-
-        -->
     </application>
 
 </manifest>

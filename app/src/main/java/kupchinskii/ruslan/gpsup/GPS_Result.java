@@ -6,6 +6,8 @@ public class GPS_Result {
     private final int _MAX_SAT_CNT = 100;
     public int status;
     public int speed;
+    public long time;
+
     public float accuracy;
     public double latitude;
     public double longitude;
