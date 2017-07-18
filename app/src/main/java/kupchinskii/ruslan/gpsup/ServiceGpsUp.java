@@ -188,20 +188,21 @@ public class ServiceGpsUp extends Service {
 
 
     private String GetFormatInfo(GPS_Result val){
-            StringBuilder s = new StringBuilder();
+        StringBuilder s = new StringBuilder();
 
-            if(val.status != Common.STATUS_DISABLE) {
-                s.append(String.format("spd : %s\n+/- : %s\nlat : %s\nlon : %s ", val.speed, val.accuracy, val.latitude, val.longitude));
+            if (val.status != Common.STATUS_DISABLE) {
+                addTyStr(s, String.format("spd : %s\n+/- : %s\nlat : %s\nlon : %s ", val.speed, val.accuracy, val.latitude, val.longitude));
 
                 if (val.time > 0)
-                    s.append(String.format("\ngps time : %s", dateFormat.format(val.time) + " " + timeFormat.format(val.time)));
+                    addTyStr(s, String.format("\ngps time : %s", dateFormat.format(val.time) + " " + timeFormat.format(val.time)));
             }
 
-            s.append(String.format("\nsat : %s / %s", val.satAct, val.satCnt));
+
+        addTyStr(s,String.format("\nsat : %s / %s", val.satAct, val.satCnt));
 
             if(val.satAct ==0 && val.satCnt == 0){
                 if(val.satTotal > 0)
-                    s.append("\nAGPS : ok");
+                    addTyStr(s,"\nAGPS : ok");
 
                 if(isBack)
                     linePos -- ;
@@ -217,7 +218,7 @@ public class ServiceGpsUp extends Service {
                     linePos = 0;
                 }
 
-                s.append( String.format("\n%s%s", Common.getStringWithLengthAndFilledWithCharacter(linePos, ' ' ), '▓' ));
+                addTyStr(s, String.format("\n%s%s", Common.getStringWithLengthAndFilledWithCharacter(linePos, ' ' ), '▓' ));
 
             }
 
@@ -283,6 +284,12 @@ public class ServiceGpsUp extends Service {
             ;
 
             sendBroadcast(intentBroadcast);
+        }
+
+        private void addTyStr(StringBuilder sb, String s){
+            try {
+                sb.append(s);
+            }catch (Exception e){}
         }
     }
 

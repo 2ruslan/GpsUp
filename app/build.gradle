@@ -8,8 +8,8 @@ android {
         applicationId "kupchinskii.ruslan.gpsup"
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 14
-        versionName "1.5.6"
+        versionCode 19
+        versionName "1.6.0"
     }
     buildTypes {
         release {
@@ -21,10 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
-
     compile 'com.android.support:appcompat-v7:25.3.1'
-
     compile 'com.android.support:support-v4:25.3.1'
 }
 

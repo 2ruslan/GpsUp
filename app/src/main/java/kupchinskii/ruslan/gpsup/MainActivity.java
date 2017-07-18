@@ -42,8 +42,7 @@ public class MainActivity extends Activity {
         else
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
-        tvInfo.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Terminus.ttf") , Typeface.NORMAL );
-
+        tvInfo.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Terminus.otf"), Typeface.NORMAL);
 
     }
 
@@ -73,7 +72,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(br);
+        if(br != null)
+            unregisterReceiver(br);
     }
 
     @Override
