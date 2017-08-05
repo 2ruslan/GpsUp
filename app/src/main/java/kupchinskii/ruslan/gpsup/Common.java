@@ -119,6 +119,9 @@ public class Common {
     private static String _title;
     private static String _msg;
     private static boolean _isUp;
+
+    final static Intent intentBroadcast = new Intent(Common.BROADCAST_ACTION);
+
     public static  void notify(Context context, String title,  String msg, boolean isUp){
 
         if(title.equals(_title)  && msg.equals(_msg) && isUp == _isUp)
@@ -127,6 +130,12 @@ public class Common {
         _title = title;
         _msg = msg;
         _isUp = isUp;
+
+        intentBroadcast.putExtra(Common.BROADCAST_TYPE, Common.BROADCAST_STOP);
+
+
+        PendingIntent pIntent = PendingIntent.getBroadcast(context, Common.BROADCAST_STOP, intentBroadcast, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         Intent activityIntent = new Intent(context, MainActivity.class);
         activityIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -144,6 +153,7 @@ public class Common {
                             .setContentText(msg)
                             .setOnlyAlertOnce(true)
                             .setOngoing(true)
+                            .addAction(R.drawable.ico_close, "Exit", pIntent)
                     ;
 
             NotificationManager mNotificationManager =
@@ -161,11 +171,10 @@ public class Common {
                     .setContentIntent(pi)
                     .setContentText(msg)
                     .setOnlyAlertOnce(true)
+                    .addAction(R.drawable.ico_close, "Exit", pIntent)
                     .setOngoing(true);
 
-            if (Build.VERSION.SDK_INT < 16)
-                notification = builder.getNotification();
-            else
+
                 notification = builder.build();
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

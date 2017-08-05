@@ -1,5 +1,6 @@
 package kupchinskii.ruslan.gpsup;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -35,12 +36,14 @@ public class ServiceGpsUp extends Service {
 
         InitBroadcastReceiver();
 
+
         Common.notify(getApplicationContext()
                 ,"sat : 0 / 0"
                 ,""
                 ,false
         );
-        if (Build.VERSION.SDK_INT < 11){
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB){
            NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(R.drawable.ic_notify_proc)
@@ -55,22 +58,18 @@ public class ServiceGpsUp extends Service {
                     0, new Intent(getApplicationContext(), MainActivity.class)
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
             startForeground(Common.NOTIFY_ID, notification);
-
-
-
         }
-        else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             Notification.Builder builder = new Notification.Builder(this)
                     .setSmallIcon(R.drawable.ic_notify_proc)
                     .setContentTitle("GPS Up")
                     .setContentText("Service create")
                     .setOnlyAlertOnce(true)
-                    .setOngoing(true);
+                    .setOngoing(true)
+                    ;
             Notification notification;
-            if (Build.VERSION.SDK_INT < 16)
-                notification = builder.getNotification();
-            else
-                notification = builder.build();
+
+             notification = builder.build();
 
             startForeground(Common.NOTIFY_ID, notification);
         }

@@ -31,6 +31,9 @@ public class GPS implements LocationListener, GpsStatus.Listener {
     Context context;
     public boolean IsReseting = false;
 
+    public static double latitude;
+    public static double longitude;
+
 
     public static long getLasDate(){
         return  lasDate;
@@ -88,8 +91,8 @@ public class GPS implements LocationListener, GpsStatus.Listener {
             currentResult.time = location.getTime();
             currentResult.speed = (int) ((location.getSpeed() * 3600) / 1000);
             currentResult.accuracy = location.getAccuracy();
-            currentResult.latitude = location.getLatitude();
-            currentResult.longitude = location.getLongitude();
+            currentResult.latitude = latitude= location.getLatitude();
+            currentResult.longitude = longitude = location.getLongitude();
             lasDate = Calendar.getInstance().getTimeInMillis();
         } catch (Exception ex) {
             currentResult.reset();

@@ -30,12 +30,20 @@
 
     <LinearLayout
         android:id="@+id/btnCtrl"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_marginTop="4dp"
         android:layout_gravity="right"
         >
+
+        <Button
+            android:layout_margin="4dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ico_share"
+            android:onClick="onSendGeo"
+            />
 
         <Button
             android:layout_margin="4dp"

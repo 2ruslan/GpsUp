@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -109,6 +111,9 @@ public class MainActivity extends Activity {
                     isPowerOn = intent.getBooleanExtra(Common.BROADCAST_VALUE_STATE, false);
                     tvInfo.setText(info);
                 }
+                else if (type == Common.BROADCAST_STOP)
+                    onClickPower(null);
+
             }
         };
         IntentFilter intFilt = new IntentFilter(Common.BROADCAST_ACTION);
@@ -131,6 +136,21 @@ public class MainActivity extends Activity {
     }
     public void onClickExit(View v) {
         finish();
+    }
+
+    public void onSendGeo(View v) {
+
+
+        if (GPS.latitude > 0 && GPS.longitude > 0) {
+
+            String shareBody = GPS.latitude + " " + GPS.longitude;
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "share location"));
+        }
+
     }
 
     public void onClickAGPS(View v) {
