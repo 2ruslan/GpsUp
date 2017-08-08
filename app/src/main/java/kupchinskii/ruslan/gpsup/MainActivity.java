@@ -143,7 +143,7 @@ public class MainActivity extends Activity {
 
         if (GPS.latitude > 0 && GPS.longitude > 0) {
 
-            String shareBody = GPS.latitude + " " + GPS.longitude;
+            String shareBody = (GPS.latitude > 0  ? "N" : "S") + Math.abs(GPS.latitude) + " " + (GPS.longitude > 0  ? "E" : "W") + Math.abs(GPS.longitude) ;
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");

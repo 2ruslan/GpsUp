@@ -171,14 +171,16 @@ public class Common {
                     .setContentIntent(pi)
                     .setContentText(msg)
                     .setOnlyAlertOnce(true)
-                    .addAction(R.drawable.ico_close, "Exit", pIntent)
+
                     .setOngoing(true);
 
+          //  if (Build.VERSION.SDK_INT >= 16)
+          //      builder.addAction(-1, "Exit", pIntent);
 
-                notification = builder.build();
+             notification = builder.build();
 
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            notificationManager.notify(NOTIFY_ID, notification);
+             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+             notificationManager.notify(NOTIFY_ID, notification);
         }
 
     }
