@@ -157,7 +157,7 @@ public class GPS implements LocationListener, GpsStatus.Listener {
     }
 
     public GPS_Result getResult(){
-        if( lasDate> 0 && Calendar.getInstance().getTimeInMillis() - lasDate > 10000 && currentResult.fixCnt == 0) {
+        if( lasDate > 0 && Calendar.getInstance().getTimeInMillis() - lasDate > 10000 && currentResult.fixCnt == 0) {
             currentResult.reset();
         }
 

@@ -38,14 +38,12 @@ public class MainActivity extends Activity {
         }
 
         tvInfo = (TextView) findViewById(R.id.tvInfo);
+        tvInfo.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Terminus.otf"), Typeface.NORMAL);
 
         if (checkLocationPermission())
             run();
         else
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-        tvInfo.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Terminus.otf"), Typeface.NORMAL);
-
     }
 
     private void run(){
@@ -59,6 +57,8 @@ public class MainActivity extends Activity {
             case 1: {
                 if (grantResults.length > 0&& grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     run();
+                else
+                    finish();
                 return;
             }
         }
@@ -107,9 +107,8 @@ public class MainActivity extends Activity {
             public void onReceive(Context context, Intent intent) {
                 int type = intent.getIntExtra(Common.BROADCAST_TYPE, -1);
                 if(type == Common.BROADCAST_INFO){
-                    String info = intent.getStringExtra(Common.BROADCAST_VALUE);
                     isPowerOn = intent.getBooleanExtra(Common.BROADCAST_VALUE_STATE, false);
-                    tvInfo.setText(info);
+                    tvInfo.setText(intent.getStringExtra(Common.BROADCAST_VALUE));
                 }
                 else if (type == Common.BROADCAST_STOP)
                     onClickPower(null);

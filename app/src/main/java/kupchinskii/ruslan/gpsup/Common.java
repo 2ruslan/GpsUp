@@ -121,6 +121,9 @@ public class Common {
     private static boolean _isUp;
 
     final static Intent intentBroadcast = new Intent(Common.BROADCAST_ACTION);
+    static PendingIntent pIntent = null;//PendingIntent.getBroadcast(context, Common.BROADCAST_STOP, intentBroadcast, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    static PendingIntent pi;
 
     public static  void notify(Context context, String title,  String msg, boolean isUp){
 
@@ -133,15 +136,15 @@ public class Common {
 
         intentBroadcast.putExtra(Common.BROADCAST_TYPE, Common.BROADCAST_STOP);
 
-
-        PendingIntent pIntent = PendingIntent.getBroadcast(context, Common.BROADCAST_STOP, intentBroadcast, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        Intent activityIntent = new Intent(context, MainActivity.class);
-        activityIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pi = PendingIntent.getActivity(context, 0, activityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (pIntent == null)
+            pIntent = PendingIntent.getBroadcast(context, Common.BROADCAST_STOP, intentBroadcast, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
+        if (pi == null) {
+            Intent activityIntent = new Intent(context, MainActivity.class);
+            activityIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            pi = PendingIntent.getActivity(context, 0, activityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
         if (Build.VERSION.SDK_INT < 11){
             NotificationCompat.Builder mBuilder =
@@ -153,7 +156,7 @@ public class Common {
                             .setContentText(msg)
                             .setOnlyAlertOnce(true)
                             .setOngoing(true)
-                            .addAction(R.drawable.ico_close, "Exit", pIntent)
+                            .addAction(R.drawable.close_icon, "Exit", pIntent)
                     ;
 
             NotificationManager mNotificationManager =
@@ -174,8 +177,8 @@ public class Common {
 
                     .setOngoing(true);
 
-          //  if (Build.VERSION.SDK_INT >= 16)
-          //      builder.addAction(-1, "Exit", pIntent);
+            if (Build.VERSION.SDK_INT >= 16)
+                builder.addAction(R.drawable.close_icon, "Exit", pIntent);
 
              notification = builder.build();
 

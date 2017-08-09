@@ -145,8 +145,9 @@ public class ServiceGpsUp extends Service {
 
         GPS g;
         int cntUp = 0;
+        GPS_Result gps;
 
-        public MyTimerTask() {
+    public MyTimerTask() {
 
             dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
@@ -156,7 +157,7 @@ public class ServiceGpsUp extends Service {
         @Override
         public void run() {
 
-            GPS_Result gps = g.getResult();
+             gps = g.getResult();
 
 
                 if (gps.accuracy > 0 && gps.accuracy < 50 && cntUp < 10){
@@ -184,10 +185,11 @@ public class ServiceGpsUp extends Service {
 
     DateFormat dateFormat;
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
+    StringBuilder s;
 
     private String GetFormatInfo(GPS_Result val){
-        StringBuilder s = new StringBuilder();
+        s = new StringBuilder();
+
 
             if (val.status != Common.STATUS_DISABLE) {
                 addTyStr(s, String.format("spd : %s\n+/- : %s\nlat : %s\nlon : %s ", val.speed, val.accuracy, val.latitude, val.longitude));
@@ -252,8 +254,10 @@ public class ServiceGpsUp extends Service {
             for(int i= 0 ; i < val.satCnt; i++)
                 s.append(GetSatInfo (val.SInfo[i].num, val.SInfo[i].isFix, val.SInfo[i].snr ));
 
+            String res = s.toString();
+            s = null;
 
-            return  s.toString();
+            return  res;
 
         }
 
@@ -272,7 +276,10 @@ public class ServiceGpsUp extends Service {
             if (length > 0) {
                 char[] array = new char[length];
                 Arrays.fill(array, charToFill);
-                return new String(array);
+                String res = new String(array);
+                array = null;
+
+                return res;
             }
             return "";
         }
