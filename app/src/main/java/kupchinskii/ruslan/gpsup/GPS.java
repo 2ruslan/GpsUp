@@ -81,6 +81,8 @@ public class GPS implements LocationListener, GpsStatus.Listener {
     @Override
     public void onLocationChanged(Location location) {
 
+        lasDate = Calendar.getInstance().getTimeInMillis();
+
         try {
             currentResult.status = Common.STATUS_ENABLE;
             currentResult.time = location.getTime();
@@ -88,15 +90,15 @@ public class GPS implements LocationListener, GpsStatus.Listener {
             currentResult.accuracy = location.getAccuracy();
             currentResult.latitude = latitude= location.getLatitude();
             currentResult.longitude = longitude = location.getLongitude();
-            lasDate = Calendar.getInstance().getTimeInMillis();
+
         } catch (Exception ex) {
         }
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        if (status != LocationProvider.AVAILABLE)
-            currentResult.reset();
+       // if (status != LocationProvider.AVAILABLE)
+       //     currentResult.reset();
     }
 
     @Override
