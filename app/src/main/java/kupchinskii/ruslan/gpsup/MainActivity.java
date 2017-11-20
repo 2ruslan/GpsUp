@@ -44,6 +44,8 @@ public class MainActivity extends Activity {
             run();
         else
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        PreferenceHelper.init(this);
+        PreferenceHelper.SetAutoStartRebooting(true);
     }
 
     private void run(){
@@ -130,6 +132,7 @@ public class MainActivity extends Activity {
     }
 
     public void onClickPower(View v) {
+        PreferenceHelper.SetAutoStartRebooting(false);
         stopSrv();
         finish();
     }
