@@ -1,6 +1,7 @@
 package kupchinskii.ruslan.gpsup;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -23,20 +24,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class GPS implements LocationListener, GpsStatus.Listener {
+public class GPS implements LocationListener, GpsStatus.Listener , IGpsResult{
     private LocationManager locationManagerGPS;
 
     GPS_Result currentResult = new GPS_Result();
-    private static long lasDate;
+    private long lasDate;
     Context context;
     public boolean IsReseting = false;
 
-    public static double latitude;
-    public static double longitude;
 
     public GPS(Context contextParm) {
         context = contextParm;
         lasDate = 0;
+        Mediator.RegisterGpsResult(this);
         start();
     }
 
@@ -44,7 +44,7 @@ public class GPS implements LocationListener, GpsStatus.Listener {
     public void onGpsStatusChanged(int event) {
         if (event == GpsStatus.GPS_EVENT_SATELLITE_STATUS) {
         try {
-            GpsStatus status = locationManagerGPS.getGpsStatus(null);
+            @SuppressLint("MissingPermission") GpsStatus status = locationManagerGPS.getGpsStatus(null);
             Iterable<GpsSatellite> sats = status.getSatellites();
 
             currentResult.satTotal = 0;
@@ -88,8 +88,8 @@ public class GPS implements LocationListener, GpsStatus.Listener {
             currentResult.time = location.getTime();
             currentResult.speed = (int) ((location.getSpeed() * 3600) / 1000);
             currentResult.accuracy = location.getAccuracy();
-            currentResult.latitude = latitude= location.getLatitude();
-            currentResult.longitude = longitude = location.getLongitude();
+            currentResult.latitude = location.getLatitude();
+            currentResult.longitude = location.getLongitude();
 
         } catch (Exception ex) {
         }
@@ -152,7 +152,7 @@ public class GPS implements LocationListener, GpsStatus.Listener {
         locationManagerGPS = null;
     }
 
-    public GPS_Result getResult(){
+    public GPS_Result getGpsResult(){
         if( lasDate > 0 && Calendar.getInstance().getTimeInMillis() - lasDate > 15000 && currentResult.fixCnt == 0) {
             currentResult.reset();
         }
@@ -176,7 +176,5 @@ public class GPS implements LocationListener, GpsStatus.Listener {
 
         return currentResult;
     }
-
-
 
 }

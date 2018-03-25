@@ -40,9 +40,6 @@ public class Common {
     public static final String BROADCAST_VALUE = "BROADCAST_VALUE";
     public static final String BROADCAST_VALUE_STATE = "BROADCAST_VALUE_STATE";
 
-    public static final String PARM_SERVICE_START = "PARM_SERVICE_START";
-    public static final String PARM_SERVICE_MODE = "PARM_SERVICE_MODE";
-
 
 
     public static final int BROADCAST_INFO = 0;
@@ -134,10 +131,10 @@ public class Common {
         _msg = msg;
         _isUp = isUp;
 
-        intentBroadcast.putExtra(Common.BROADCAST_TYPE, Common.BROADCAST_STOP);
-
-        if (pIntent == null)
+        if (pIntent == null) {
+            intentBroadcast.putExtra(Common.BROADCAST_TYPE, Common.BROADCAST_STOP);
             pIntent = PendingIntent.getBroadcast(context, Common.BROADCAST_STOP, intentBroadcast, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
 
         if (pi == null) {

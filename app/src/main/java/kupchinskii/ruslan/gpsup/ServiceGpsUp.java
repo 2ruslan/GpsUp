@@ -55,8 +55,7 @@ public class ServiceGpsUp extends Service {
 
             Notification notification = mBuilder.getNotification();
             notification.contentIntent = PendingIntent.getActivity(this,
-                    0, new Intent(getApplicationContext(), MainActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
+                    0, new Intent(getApplicationContext(), MainActivity.class),  PendingIntent.FLAG_UPDATE_CURRENT);
             startForeground(Common.NOTIFY_ID, notification);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -96,9 +95,8 @@ public class ServiceGpsUp extends Service {
 
     public void onDestroy() {
         super.onDestroy();
+        Mediator.OnDestroy();
         onStop();
-
-       // broadcastMsg("Service stoped", false);
     }
 
     private void onStop(){
@@ -109,16 +107,6 @@ public class ServiceGpsUp extends Service {
         }
     }
 
-    void broadcastMsg(String msg, boolean powerOn) {
-        intentBroadcast.putExtra(Common.BROADCAST_TYPE, Common.BROADCAST_INFO)
-                .putExtra(Common.BROADCAST_VALUE, msg )
-                .putExtra(Common.BROADCAST_VALUE_STATE, powerOn)
-        ;
-
-        sendBroadcast(intentBroadcast);
-    }
-
-
     private void InitBroadcastReceiver() {
         br = new BroadcastReceiver() {
             // действия при получении сообщений
@@ -126,6 +114,7 @@ public class ServiceGpsUp extends Service {
                 int type = intent.getIntExtra(Common.BROADCAST_TYPE, -1);
                 if(type == Common.BROADCAST_STOP){
                     stopService(new Intent(getApplicationContext(), ServiceGpsUp.class));
+                    System.exit(0);
                 }
             }
         };
@@ -143,7 +132,7 @@ public class ServiceGpsUp extends Service {
 /*----------------------------------------------------------------------------------------------*/
     public class MyTimerTask extends TimerTask {
 
-        GPS g;
+        GPS m_gps;
         int cntUp = 0;
         GPS_Result gps;
 
@@ -151,14 +140,13 @@ public class ServiceGpsUp extends Service {
 
             dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
-            g = new GPS(getApplicationContext());
+        m_gps = new GPS(getApplicationContext());
         }
 
         @Override
         public void run() {
 
-             gps = g.getResult();
-
+             gps = m_gps.getGpsResult();
 
                 if (gps.accuracy > 0 && gps.accuracy < 50 && cntUp < 10){
                     cntUp++;
@@ -168,13 +156,15 @@ public class ServiceGpsUp extends Service {
                     broadcastStop();
                 }
 
-            broadcastMsg(GetFormatInfo(gps), true);
+                if(Mediator.isShowInfo())
+                    Mediator.ShowInfo(GetFormatInfo(gps));
+
         }
 
         public void stop() {
-            if (g != null) {
-                g.stop();
-                g = null;
+            if (m_gps != null) {
+                m_gps.stop();
+                m_gps = null;
             }
         }
 
