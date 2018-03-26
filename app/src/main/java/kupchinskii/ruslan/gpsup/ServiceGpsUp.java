@@ -182,7 +182,14 @@ public class ServiceGpsUp extends Service {
 
 
             if (val.status != Common.STATUS_DISABLE) {
-                addTyStr(s, String.format("spd : %s\n+/- : %s\nlat : %s\nlon : %s ", val.speed, val.accuracy, val.latitude, val.longitude));
+                addTyStr(s, String.format("spd : %s\n+/- : %s\nlat : %s\nlon : %s\nalt : %s  "
+                        ,val.speed
+                        ,val.accuracy
+                        ,val.latitude
+                        ,val.longitude
+                        ,val.altitude
+
+                ));
 
                 if (val.time > 0)
                     addTyStr(s, String.format("\ngps time : %s", dateFormat.format(val.time) + " " + timeFormat.format(val.time)));

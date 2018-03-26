@@ -90,6 +90,7 @@ public class GPS implements LocationListener, GpsStatus.Listener , IGpsResult{
             currentResult.accuracy = location.getAccuracy();
             currentResult.latitude = location.getLatitude();
             currentResult.longitude = location.getLongitude();
+            currentResult.altitude = location.getAltitude();
 
         } catch (Exception ex) {
         }

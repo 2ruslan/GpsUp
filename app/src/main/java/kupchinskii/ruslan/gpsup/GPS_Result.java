@@ -11,6 +11,7 @@ public class GPS_Result {
     public float accuracy;
     public double latitude;
     public double longitude;
+    public double altitude;
 
     public int satCnt;
     public int satAct;
